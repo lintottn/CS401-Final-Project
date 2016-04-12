@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+	Nicole Lintott
+	200252351
+	Basic queries from keen.io
+	Opening this page in a browser should render the graphs because the read and project key have been left in
+	I'm no consered if people see this data if they want.
+-->
+<head>
+	<title>keen.io example</title>
+	<script type="text/javascript" src="javascript.js"></script>
+	<script type="text/javascript">
+  !function(a,b){a("Keen","https://d26b395fwzu5fz.cloudfront.net/3.4.0/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);
+</script>
+</head>
+
+<body>
+<script type="text/javascript">
+	var client = new Keen({
+		projectId: "57099d2c46f9a74e76dd2688",
+		//readkey has been left in on purpose
+		readKey: "dd58ff6691378c6653062702c3fc42392bdb7ca90b0b6b503635b89d9c50c71d050fe82bf00e78d8b28616ba3af410dcd9840ad0e5ac99f17ff19abb50b6c20500c49fc63e2c4c64b40ca2a26634ffe90ee302675c2e779093c7dda69529259b"
+	});
+
+	Keen.ready(function(){
+			// Create a query instance
+			var count = new Keen.Query("count", {
+				event_collection: "output4",
+				group_by: "minValue",
+				timeframe: "this_7_days"
+			});
+
+			client.draw(count, document.getElementById("chart1"), {
+				chartType: "columnchart",
+				title: "Count for MinValue",
+				width: 1500
+			});
+
+		});
+
+		Keen.ready(function(){
+			// Create a query instance
+			var query2 = new Keen.Query("count", {
+				event_collection: "output4",
+				group_by: "maxValue",
+				timeframe: "this_7_days"
+			});
+
+			client.draw(query2, document.getElementById("chart2"), {
+				chartType: "columnchart",
+				title: "Count for MaxValue",
+				width: 1500
+			});
+
+		});
+
+		Keen.ready(function(){
+			// Create a query instance
+			var query3 = new Keen.Query("count", {
+				event_collection: "output4",
+				group_by: "duration",
+				timeframe: "this_7_days"
+			});
+
+			client.draw(query3, document.getElementById("chart3"), {
+				chartType: "columnchart",
+				title: "Count for Duration",
+				width: 1500
+			});
+
+		});
+
+
+
+</script>
+<div id="chart1"></div>
+<br>
+<div id="chart2"></div>
+<br>
+<div id="chart3"></div>
+</body>
